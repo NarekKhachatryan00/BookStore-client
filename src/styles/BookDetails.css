@@ -1,0 +1,48 @@
+.book-details {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+}
+
+.book-preview h3, p {
+    color: #0b3c73;
+    font-size: large;
+}
+        
+.book-preview {
+    background-color: #5ab3e050; 
+    border: 1px solid #082742; 
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px; 
+    text-align: center;
+    transition: transform 0.2s;
+    margin: 10px; 
+}
+        
+.book-preview:hover {
+    transform: scale(1.05);
+}
+        
+.book-preview img {
+    margin-bottom: 10px;        
+}        
+
+.book-preview h3, .book-preview h4, .book-preview p {
+    margin: 5px 0;
+}
+        
+.book-preview button {
+    background-color: #0b3c73; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+        
+.book-preview button:hover {
+    background-color: #0b3c73;
+}

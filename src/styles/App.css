@@ -1,0 +1,10 @@
+@import url('https://fonts.cdnfonts.com/css/jetbrains-mono');
+
+* {
+    font-family: 'JetBrains Mono', sans-serif;
+    font-size: large;
+}
+
+body{
+    background-color: #d5f3fe;
+}

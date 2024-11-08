@@ -1,0 +1,43 @@
+body {
+  background-color: #d5f3fe
+}
+
+.market {
+  color: #00695c;
+  padding: 20px;
+  border-radius: 0px;
+  text-align: center;
+  margin-top: 50px;
+}
+  
+.market h2 {
+  color: #0b3c73;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+  
+.market .booklist {
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 20px;
+}
+  
+.market button {
+  background-color: #0b3c73; 
+  color: white;
+  border: none;
+  width: fit-content;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+  
+.market button:hover {
+  background-color: #082f5c;
+}
+  
+.error {
+  color: red;
+}
