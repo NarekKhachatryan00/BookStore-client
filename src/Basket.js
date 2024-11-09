@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Axios from 'axios';
 import './styles/Basket.css';
 
 const Basket = () => {
@@ -7,8 +8,28 @@ const Basket = () => {
   const [books, setBooks] = useState([]);
   const [selectedBooks, setSelectedBooks] = useState([]);
   const [error, setError] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await Axios.get('http://localhost:3001', { withCredentials: true });
+        if (response.data.status === 'Success') {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (err) {
+        console.error('Error checking authentication:', err);
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuth();
+
+    const storedSelectedBooks = JSON.parse(localStorage.getItem('selectedBooks')) || [];
+    setSelectedBooks(storedSelectedBooks);
+
     fetch('http://localhost:3001/api/books')
       .then(response => {
         if (!response.ok) {
@@ -17,17 +38,12 @@ const Basket = () => {
         return response.json();
       })
       .then(data => {
-        console.log('Fetched books:', data);
         setBooks(data);
       })
       .catch(error => {
         console.error('Error fetching books:', error);
         setError(error.message);
       });
-
-    const storedSelectedBooks = JSON.parse(localStorage.getItem('selectedBooks')) || [];
-    console.log('Stored selected books in basket:', storedSelectedBooks);
-    setSelectedBooks(storedSelectedBooks);
   }, []);
 
   const handleDeleteBook = (bookId) => {
@@ -42,7 +58,11 @@ const Basket = () => {
   };
 
   const handleCheckout = () => {
+    if (!isAuthenticated) {
+      history.push('/login');
+    } else {
       history.push('/checkout');
+    }
   };
 
   const getBookDetails = (bookId) => {

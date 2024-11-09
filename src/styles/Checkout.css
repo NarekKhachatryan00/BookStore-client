@@ -1,3 +1,80 @@
 body {
     background-color: #d5f3fe
 }
+
+.checkout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 75px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.checkoutBox {
+    justify-content: center;
+    background-color: #3c99dc63;
+    padding: 20px;
+    border-radius: 10px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.checkoutBox h2 {
+    text-align: center;
+    color: #2565ae;
+    margin-bottom: 20px;
+    text-shadow: 0 5px 15px rgba(0.3, 0.1, 0.1, 0.1);
+    font-size: x-large;
+    margin: 30px;
+
+}
+
+.checkoutBox label {
+    color: #1b4779;
+    margin-bottom: 5px;
+    font-weight: bolder;
+}
+
+.checkoutBox input {
+    padding: 10px;
+    margin-bottom: 15px; 
+    border: #cecece;
+    border-width: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+.checkoutBox button {
+    margin: 20px;
+    border-radius: 7px;
+    background-color: #2a6db8;
+    border-width: 0;
+    font-weight: bold;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    height: 40px;
+    width: 90%;
+    transition: 0.3s;
+    align-self: center;
+}
+
+button:hover {
+    box-shadow: none;
+    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.867);
+    color: black;
+    background-color: #ffffffca;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.checkoutBox h3 {
+    color: #fff;
+    font-weight: bold;
+    font-size: small;
+}

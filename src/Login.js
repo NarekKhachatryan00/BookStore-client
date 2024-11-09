@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import Axios from 'axios';
 import './styles/Login.css';
 
 const Login = () => {
-
+    const history = useHistory();
     const [usernameLog, setUsernameLog] = useState('');
     const [pwdLog, setPwdLog] = useState('');
     
+    Axios.defaults.withCredentials = true;
 
     const loginFunc = async () => {
         try {
@@ -16,12 +17,16 @@ const Login = () => {
                 username: usernameLog, 
                 password: pwdLog 
             });
-            console.log(response.data);
+    
+            if(response.data.status === "Success") {
+                history.push('/');
+            } else {
+                console.log(response.data.error);
+            }
         } catch (error) {
             console.error('Login error:', error);
         }
     };
-
 
     return (
         <div className='login'>
@@ -57,3 +62,5 @@ const Login = () => {
 };
 
 export default Login;
+
+
