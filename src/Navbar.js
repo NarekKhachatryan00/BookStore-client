@@ -13,7 +13,7 @@ const Navbar = () => {
         const response = await Axios.get('http://localhost:3001', { withCredentials: true });
         if (response.data.status === 'Success') {
           setAuth(true);
-          setName(response.data.name); // Set name from response
+          setName(response.data.name); 
         } else {
           setAuth(false);
         }

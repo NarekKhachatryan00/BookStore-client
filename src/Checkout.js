@@ -54,12 +54,13 @@ const Checkout = () => {
     }
 
     try {
-      const token = localStorage.getItem('token'); 
+      const token = localStorage.getItem('token');
+      const response2 = await Axios.get('http://localhost:3001', { withCredentials: true });
 
       const response = await Axios.post(
         'http://localhost:3001/api/order',
         {
-          username: localStorage.getItem('username'), 
+          username: response2.data.name, 
           address,
           payment_method: paymentMethod,
           total_price: totalPrice,
