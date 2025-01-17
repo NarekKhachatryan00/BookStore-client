@@ -73,6 +73,7 @@ const Checkout = () => {
       );
 
       if (response.data.status === 'Success') {
+        localStorage.setItem('selectedBooks', JSON.stringify([]));
         console.log('Order placed successfully!');
         history.push('/');
       } else {
@@ -137,3 +138,5 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+

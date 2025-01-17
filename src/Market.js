@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BookDetails from './BookDetails';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './styles/Market.css';
 import Axios from 'axios';
 
@@ -9,26 +9,7 @@ const Market = () => {
   const [books, setBooks] = useState([]);
   const [selectedBooks, setSelectedBooks] = useState([]);
   const [error, setError] = useState(null);
-  const [auth, setAuth] = useState(false);
-  const [message, setMessage] = useState('');
-
   Axios.defaults.withCredentials = true;
-
-  useEffect(() => {
-    Axios.get('http://localhost:3001')
-      .then((res) => {
-        if (res.data.status === 'Success') {
-          setAuth(true);
-        } else {
-          setAuth(false);
-          setMessage(res.data.error);
-          history.push('/login');
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, [history]);
 
   useEffect(() => {
     fetch('http://localhost:3001/api/books')
@@ -47,8 +28,8 @@ const Market = () => {
         setError(error.message);
       });
 
+    // Get the stored selected books from localStorage
     const storedSelectedBooks = JSON.parse(localStorage.getItem('selectedBooks')) || [];
-    console.log('Stored selected books:', storedSelectedBooks);
     setSelectedBooks(storedSelectedBooks);
   }, []);
 
@@ -58,6 +39,7 @@ const Market = () => {
     );
     setBooks(updatedBooks);
 
+    // Update selectedBooks state
     const newSelectedBooks = [...selectedBooks];
     const bookIndex = newSelectedBooks.findIndex((item) => item.id === bookId);
 
@@ -78,27 +60,22 @@ const Market = () => {
     });
   };
 
+  const getTotalBooksInBasket = () => {
+    return selectedBooks.reduce((total, { quantity }) => total + quantity, 0);
+  };
+
   return (
     <div className="market">
-      {auth ? (
-        <div>
-          <h2>- Our Books -</h2>
-          {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-          {message && <p style={{ color: 'orange' }}>{message}</p>}
-          <div className="booklist">
-            <BookDetails books={books} handleSelectBook={handleSelectBook} />
-          </div>
-          <div className="basket-btn">
-            <button onClick={handleCheckout}>Basket</button>
-          </div>
+      <div>
+        <h2>- Our Books -</h2>
+        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+        <div className="booklist">
+          <BookDetails books={books} handleSelectBook={handleSelectBook} />
         </div>
-      ) : (
-        <div>
-          <h3>{}</h3>
-          <h3>Login Now</h3>
-          <Link to="/login">Login</Link>
+        <div className="basket-btn">
+          <button onClick={handleCheckout}>Basket</button>
         </div>
-      )}
+      </div>
     </div>
   );
 };

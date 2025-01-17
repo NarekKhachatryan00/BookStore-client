@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './styles/App.css';
 import Navbar from "./Navbar";
@@ -9,10 +9,21 @@ import Basket from "./Basket";
 import Checkout from "./Checkout";
 
 function App() {
+  const [selectedBooks, setSelectedBooks] = useState([]);
+
+  useEffect(() => {
+    const storedSelectedBooks = JSON.parse(localStorage.getItem('selectedBooks')) || [];
+    setSelectedBooks(storedSelectedBooks);
+  }, []);
+
+  const getTotalBooksInBasket = () => {
+    return selectedBooks.reduce((total, { quantity }) => total + quantity, 0);
+  };
+
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navbar totalBooksInBasket={getTotalBooksInBasket()} />
         <Switch>
           <Route path='/register'>
             <Register />

@@ -6,6 +6,7 @@ import './styles/Navbar.css';
 const Navbar = () => {
   const [auth, setAuth] = useState(false);
   const [name, setName] = useState('');
+  const [totalBooksInBasket, setTotalBooksInBasket] = useState(0);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -26,6 +27,12 @@ const Navbar = () => {
     checkAuth();
   }, []);
 
+  useEffect(() => {
+    const storedSelectedBooks = JSON.parse(localStorage.getItem('selectedBooks')) || [];
+    const totalBooks = storedSelectedBooks.reduce((total, { quantity }) => total + quantity, 0);
+    setTotalBooksInBasket(totalBooks);
+  }, []);
+
   const handleLogout = () => {
     Axios.post('http://localhost:3001/api/logout', {}, { withCredentials: true })
       .then(() => {
@@ -37,6 +44,8 @@ const Navbar = () => {
       });
   };
 
+  const basketCount = totalBooksInBasket > 9 ? '9+' : totalBooksInBasket;
+
   return (
     <nav>
       <div>
@@ -47,7 +56,10 @@ const Navbar = () => {
           <Link to="/"> <img src="/homepage-logo.png" alt="Homepage" style={{ width: '42px', height: '42px' }} /> </Link>
         </div>
         <div className="navbasket">
-          <Link to="/basket"> <img src="/basket-logo.png" alt="Basket" style={{ width: '42px', height: '42px' }} /> </Link>
+          <Link to="/basket"> 
+            <img src="/basket-logo.png" alt="Basket" style={{ width: '42px', height: '42px' }} />
+            {totalBooksInBasket > 0 && <span className="basket-count">{basketCount}</span>}
+          </Link>
         </div>
         {auth ? (
           <div className="logout">

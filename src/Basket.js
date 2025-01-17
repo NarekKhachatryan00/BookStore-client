@@ -79,7 +79,8 @@ const Basket = () => {
   return (
     <div className="basket">
       <div className="book-selection">
-        {selectedBooks && selectedBooks.length > 0 ? (
+        {
+        selectedBooks && selectedBooks.length > 0 ? (
           selectedBooks.map(({ id, quantity }) => {
             const book = getBookDetails(id);
             return (

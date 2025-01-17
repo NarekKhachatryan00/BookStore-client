@@ -68,3 +68,21 @@ nav {
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
+
+.navbasket {
+    position: relative;
+}
+  
+.basket-count {
+    position: absolute;
+    top: -2px;
+    right: 16px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+}
